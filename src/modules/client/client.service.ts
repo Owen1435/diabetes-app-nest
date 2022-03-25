@@ -4,6 +4,11 @@ import { SaveClientRequestDto } from './dto/save-client.request.dto';
 import { ClientEntity } from '../../enyity/client.entity';
 import { UpdateClientRequestDto } from './dto/update-client.request.dto';
 import { UpdateResult } from 'typeorm';
+import {
+  IPaginationOptions,
+  paginate,
+  Pagination,
+} from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class ClientService {
@@ -37,5 +42,11 @@ export class ClientService {
 
   async getById(clientId: number): Promise<ClientEntity> {
     return await this.clientRepository.findOne(clientId);
+  }
+
+  async paginate(
+    options: IPaginationOptions,
+  ): Promise<Pagination<ClientEntity>> {
+    return paginate<ClientEntity>(this.clientRepository, options);
   }
 }
