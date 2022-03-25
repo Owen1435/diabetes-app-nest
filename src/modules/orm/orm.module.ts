@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
+import { ClientEntity } from '../../enyity/client.entity';
 
 export const typeOrmConfigAsync: TypeOrmModuleAsyncOptions = {
   imports: [ConfigModule],
@@ -8,11 +9,10 @@ export const typeOrmConfigAsync: TypeOrmModuleAsyncOptions = {
   useFactory: async (configService: ConfigService) => ({
     type: 'postgres',
     url: configService.get('DATABASE_URL'),
-    ssl: {
-      rejectUnauthorized: false,
-    },
     synchronize: true,
-    entities: ['dist/src/entity/*entity.js'],
+    logging: false,
+    extra: { ssl: { rejectUnauthorized: false } },
+    entities: [ClientEntity],
   }),
 };
 

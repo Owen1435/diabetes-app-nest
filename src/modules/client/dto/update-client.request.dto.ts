@@ -1,31 +1,37 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty } from 'class-validator';
+import { IsInt, IsNotEmpty, IsPositive } from 'class-validator';
 
-export class SaveClientRequestDto {
+export class UpdateClientRequestDto {
+  @ApiProperty({
+    description: 'Client id',
+    example: 10,
+  })
+  @IsNotEmpty()
+  @IsPositive()
+  @IsInt()
+  clientId: number;
+
   @ApiProperty({
     description: 'First name',
     example: 'Sergei',
   })
-  @IsNotEmpty()
-  firstName: string;
+  firstName?: string;
 
   @ApiProperty({
     description: 'Last name',
     example: 'Tsybulski',
   })
-  @IsNotEmpty()
-  lastName: string;
+  lastName?: string;
 
   @ApiProperty({
     description: 'Middle name',
     example: 'Olegovich',
   })
-  @IsNotEmpty()
-  middleName: string;
+  middleName?: string;
 
   @ApiProperty({
     description: 'Client data',
     example: '{"age": 20, "gender": "male"}',
   })
-  data: object;
+  data?: object;
 }

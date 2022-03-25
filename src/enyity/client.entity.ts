@@ -23,7 +23,8 @@ export class ClientEntity {
   middleName: string;
 
   @Column({
-    type: 'varchar',
+    type: 'jsonb',
+    nullable: true,
   })
-  data: string;
+  data: object;
 }
